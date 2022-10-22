@@ -8,6 +8,7 @@ Url shortener built using django
 - clone the project
 - enter the directory by cd urlshortener/urlshortener
 - run command ` python manage.py runserver`
+- navigate to `localhost:8000/shorten`
 
 ### After any changes to the format of database run the following commands to make migrate the changes to the database :
 

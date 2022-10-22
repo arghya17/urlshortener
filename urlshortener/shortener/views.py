@@ -60,3 +60,12 @@ def redirect_url(request, shorturl):
     obj.clicks += 1
     obj.save()
     return redirect(long_url)
+
+
+def all_analytics(request):
+    rows = LongToShort.objects.all()
+    context = {
+        "rows": rows
+    }
+    print(rows)
+    return render(request, 'all_analytics.html', context)
