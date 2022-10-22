@@ -2,6 +2,8 @@ from urllib import response
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import LongToShort
+
 
 def example_view(request, name):
     # name slug variable
@@ -32,6 +34,14 @@ def shorten_url(request):
         data = {}
         data['long_url'] = long_url
         data['short_url'] = request.build_absolute_uri() + custom_name
+
+        obj = LongToShort(long_url=long_url, short_url=custom_name)
+        obj.save()
+
+        date = obj.date
+        clicks = obj.clicks
+        data['date'] = date
+        data['clicks'] = clicks
         context['data'] = data
         print(long_url, custom_name)
     return render(request, 'home.html', context)

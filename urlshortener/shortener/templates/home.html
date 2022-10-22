@@ -110,25 +110,22 @@
 						<div class="row py-4">
 							<div class="col-12 result">
 								<div class="url_options rounded-6" id="0">
-									<p class="data_link">Oct 17, 2022</p>
+									<p class="data_link">{{ data.date }}</p>
 									<p class="url_link">{{ data.long_url }}</p>
 									<p id="link" class="link_element">
 										<a
-											href="https://localhost:8000/redirect/day3-ppt"
+											href="{{ data.short_url }}"
 											class="short_url_l"
 											target="_blank"
 											>{{ data.short_url }}</a
 										>
 									</p>
 									<p class="btn-cutt i_s"></p>
-									<a
-										href="https://localhost:8000/analytics/day3-ppt"
-										class="btn-cutt click_stats"
-									>
+									<a href="{{ data.short_url }}" class="btn-cutt click_stats">
 										<svg class="i_svg" viewBox="0 0 24 24">
 											<use xlink:href="#i_chart"></use>
 										</svg>
-										<span> <b class="badge">5</b>clicks </span>
+										<span> <b class="badge">{{ data.clicks }}</b>clicks </span>
 									</a>
 								</div>
 							</div>
