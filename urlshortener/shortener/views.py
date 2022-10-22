@@ -1,5 +1,5 @@
 from urllib import response
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import LongToShort
@@ -24,6 +24,7 @@ def task_view(request):
 def shorten_url(request):
     context = {
         "submitted": False,
+        "error": False
     }
     if request.method == "POST":
         context['submitted'] = True
@@ -34,14 +35,28 @@ def shorten_url(request):
         data = {}
         data['long_url'] = long_url
         data['short_url'] = request.build_absolute_uri() + custom_name
+        try:
+            obj = LongToShort(long_url=long_url, short_url=custom_name)
+            obj.save()
 
-        obj = LongToShort(long_url=long_url, short_url=custom_name)
-        obj.save()
+            date = obj.date
+            clicks = obj.clicks
+            data['date'] = date
+            data['clicks'] = clicks
+            context['data'] = data
+        except:
+            context['submitted'] = False
+            context['error'] = True
 
-        date = obj.date
-        clicks = obj.clicks
-        data['date'] = date
-        data['clicks'] = clicks
-        context['data'] = data
-        print(long_url, custom_name)
     return render(request, 'home.html', context)
+
+
+def redirect_url(request, shorturl):
+    row = LongToShort.objects.filter(short_url=shorturl)
+    if len(row) == 0:
+        return render(request, 'error.html')
+    obj = row[0]
+    long_url = obj.long_url
+    obj.clicks += 1
+    obj.save()
+    return redirect(long_url)
