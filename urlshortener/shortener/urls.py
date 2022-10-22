@@ -4,7 +4,7 @@ from .views import *
 urlpatterns = [
     path('example/<slug:name>', example_view),
     path('task/', task_view),
-    path('shorten/', shorten_url),
+    path('', shorten_url),
     path('all_analytics', all_analytics),
     path('<slug:shorturl>', redirect_url),
 ]

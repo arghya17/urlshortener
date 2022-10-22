@@ -9,7 +9,9 @@
 			content="width=device-width, initial-scale=1, shrink-to-fit=no"
 		/>
 
-		<title>Custom URL Shortener</title>
+		<title display="flex" flex="row" justify="center">
+			Custom URL Shortener
+		</title>
 
 		<link
 			rel="stylesheet"
@@ -39,11 +41,7 @@
 						<p class="data_link">{{ obj.date }}</p>
 						<p class="url_link">{{ obj.long_url }}</p>
 						<p id="link" class="link_element">
-							<a
-								href="/redirect/{{ obj.custom_name }}"
-								class="short_url_l"
-								target="blank"
-							>
+							<a href="{{ obj.short_url }}" class="short_url_l" target="blank">
 								{{ obj.short_url }}</a
 							>
 						</p>

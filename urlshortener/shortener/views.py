@@ -58,6 +58,20 @@ def redirect_url(request, shorturl):
     obj = row[0]
     long_url = obj.long_url
     obj.clicks += 1
+    analytics = request.headers['user-agent']
+    if "OPR" in analytics or "Opera" in analytics:
+        obj.opera += 1
+    elif "Firefox" in analytics:
+        obj.firefox += 1
+    elif "Chrome" in analytics:
+        obj.chrome += 1
+    else:
+        obj.others += 1
+
+    if request.META['HTTP_SEC_CH_UA_MOBILE'] == '?0':
+        obj.desktop += 1
+    else:
+        obj.mobile += 1
     obj.save()
     return redirect(long_url)
 
