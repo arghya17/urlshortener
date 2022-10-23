@@ -103,7 +103,7 @@ def analytics(request, short_url):
     data = [['desktop', obj.desktop], ['mobile', obj.mobile]]
     df = pd.DataFrame(data=data, columns=['Device', 'Count'])
     plot_div = plot(px.bar(df, x='Device', y='Count', color='Device',
-                    title='Device Used'), output_type='div')
+                    title='Devices Used'), output_type='div')
     context['plot_div_2'] = plot_div
     context['long_url'] = obj.long_url
     context['date'] = obj.date
