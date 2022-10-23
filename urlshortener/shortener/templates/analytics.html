@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Analytics</title>
+		<link
+			rel="stylesheet"
+			href="{% static 'bootstrap.min.css' %}"
+			type="text/css"
+			media="screen"
+		/>
+	</head>
+	<body>
+		<h1>Statistics</h1>
+		<p class="url_link">
+			Long url
+			<a href="{{ long_url }}" class="long_url_l" target="blank">
+				{{ long_url }}</a
+			>
+		</p>
+		<p class="data_link">Creation date {{ date }}</p>
+		<p id="link" class="link_element">
+			Shortened Url Created
+			<a href="/{{ short_url }}" class="short_url_l" target="blank">
+				{{ short_url }}</a
+			>
+		</p>
+		<div class="stats_total btn-cutt click_stats btn_norm">
+			<div>
+				Total number of visits to the site
+				<strong class="allClicks">{{ clicks }}</strong>
+			</div>
+		</div>
+		<div>{% autoescape off %} {{ plot_div_1 }} {% endautoescape %}</div>
+		<div>{% autoescape off %} {{ plot_div_2 }} {% endautoescape %}</div>
+	</body>
+</html>

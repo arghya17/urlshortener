@@ -1,8 +1,12 @@
 from urllib import response
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
 from .models import LongToShort
+
+from plotly.offline import plot
+from plotly.graph_objs import Scatter
+import plotly.express as px
+import pandas as pd
 
 
 def example_view(request, name):
@@ -83,3 +87,39 @@ def all_analytics(request):
     }
     print(rows)
     return render(request, 'all_analytics.html', context)
+
+
+def analytics(request, short_url):
+    row = LongToShort.objects.filter(short_url=short_url)
+    if len(row) == 0:
+        return render(request, 'error.html')
+    obj = row[0]
+    data = [['opera', obj.opera], ['Chrome', obj.chrome],
+            ['Firefox', obj.firefox], ['others', obj.others]]
+    df = pd.DataFrame(data=data, columns=['Browser', 'Number of Accesses'])
+    plot_div = plot(px.pie(df, values='Number of Accesses', names='Browser',
+                    title='Browser Accessing the link'), output_type='div')
+    context = {'plot_div_1': plot_div}
+    data = [['desktop', obj.desktop], ['mobile', obj.mobile]]
+    df = pd.DataFrame(data=data, columns=['Device', 'Count'])
+    plot_div = plot(px.bar(df, x='Device', y='Count', color='Device',
+                    title='Device Used'), output_type='div')
+    context['plot_div_2'] = plot_div
+    context['long_url'] = obj.long_url
+    context['date'] = obj.date
+    context['short_url'] = obj.short_url
+    context['clicks'] = obj.clicks
+    return render(request, "analytics.html", context)
+    # data = [
+    #     ['Year', 'Sales', 'Expenses'],
+    #     [2004, 1000, 400],
+    #     [2005, 1170, 460],
+    #     [2006, 660, 1120],
+    #     [2007, 1030, 540]
+    # ]
+    # DataSource object
+    # data_source = SimpleDataSource(data=data)
+    # # Chart object
+    # chart = LineChart(data_source)
+    # context = {'chart': chart}
+    # return render(request, 'analytics.html', context)
