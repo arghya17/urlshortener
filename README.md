@@ -6,7 +6,6 @@ Url shortener built using django
 
 - create a new virtual environment and run `pip install -r requirements.txt`
 - clone the project
-- enter the directory by cd urlshortener/urlshortener
 - run command ` python manage.py runserver`
 - navigate to `localhost:8000`
 
