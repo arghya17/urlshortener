@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shortener',
+    'django_nvd3',
+    'djangobower',
+
 ]
 
 MIDDLEWARE = [
@@ -118,6 +121,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# # added by me
+# PROJECT_ROOT = os.path.abspath(
+#     os.path.join(os.path.dirname(__file__), ".."),
+# )
+# BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     'djangobower.finders.BowerFinder',
+# )
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

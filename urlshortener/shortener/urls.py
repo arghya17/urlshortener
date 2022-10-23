@@ -7,5 +7,6 @@ urlpatterns = [
     path('', shorten_url),
     path('all_analytics', all_analytics),
     path('<slug:shorturl>', redirect_url),
+    path('<slug:short_url>/analytics', analytics),
 ]
 # slug very important feature
